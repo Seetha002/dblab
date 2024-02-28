@@ -1,0 +1,139 @@
+ CREATE TABLE Student12(Roll_no numeric(3),S_name varchar(25),S_Address varchar(25),
+ constraint st1 PRIMARY KEY(Roll_no));
+
+CREATE TABLE Marksheet12(Rollno numeric(3),sub1 numeric(4),sub2 numeric(4),sub3 numeric(4),
+constraint mk1 FOREIGN KEY(Rollno) references Student12(Roll_no));
+
+insert into Student12 values(1,'Rahul','pattom');
+insert into Student12 values(2,'Sachin','Ambalam Mukku');
+ insert into Student12 values(3,'Sourav','Nalanchira');
+
+insert into Marksheet12 values(1,78,30,45);
+insert into Marksheet12 values(2,45,65,50);
+insert into Marksheet12 values(3,60,87,33);
+
+SQL> select * from Student12;
+
+   ROLL_NO S_NAME                    S_ADDRESS
+---------- ------------------------- -------------------------
+         1 Rahul                     pattom
+         2 Sachin                    Ambalam Mukku
+         3 Sourav                    Nalanchira
+
+SQL> select * from Marksheet12;
+
+    ROLLNO       SUB1       SUB2       SUB3
+---------- ---------- ---------- ----------
+         1         78         30         45
+         2         45         65         50
+         3         60         87         33
+
+a) ALTER TABLE Marksheet12 ADD Grade varchar(3);
+
+Table altered.
+
+SQL> desc Marksheet12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ---------------------
+ ROLLNO                                             NUMBER(3)
+ SUB1                                               NUMBER(4)
+ SUB2                                               NUMBER(4)
+ SUB3                                               NUMBER(4)
+ GRADE                                              VARCHAR2(3)
+
+SQL> select * from MArksheet12;
+
+    ROLLNO       SUB1       SUB2       SUB3 GRA
+---------- ---------- ---------- ---------- ---
+         1         78         30         45
+         2         45         65         50
+         3         60         87         33
+
+b) ALTER TABLE Marksheet12 DROP COLUMN sub2;
+
+Table altered.
+
+SQL> desc Marksheet12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------
+ ROLLNO                                             NUMBER(3)
+ SUB1                                               NUMBER(4)
+ SUB3                                               NUMBER(4)
+ GRADE                                              VARCHAR2(3)
+
+SQL> select * from Marksheet12;
+
+    ROLLNO       SUB1       SUB3 GRA
+---------- ---------- ---------- ---
+         1         78         45
+         2         45         50
+         3         60         33
+c)ALTER TABLE Student12 ADD phone_no numeric(10) constraint ck1 check(length(phone_no)=10);
+SQL> desc Student12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------
+ ROLL_NO                                   NOT NULL NUMBER(3)
+ S_NAME                                             VARCHAR2(25)
+ S_ADDRESS                                          VARCHAR2(25)
+ PHONE_NO                                           NUMBER(10)
+iv)
+a> select * from Student12 where S_Address='pattom';
+
+   ROLL_NO S_NAME                    S_ADDRESS                   PHONE_NO
+---------- ------------------------- ------------------------- ----------
+         1 Rahul                     pattom
+
+ update Student12 set phone_no=9891234567 where Roll_no=1;
+ update Student12 set phone_no=9891234534 where Roll_no=2;
+update Student12 set phone_no=9891234123 where Roll_no=3;
+
+b)	select sub1+sub3 as total,(sub1+sub3)*2 as double,
+	(sub1+sub3)*3 as thribble from Marksheet12 where Rollno=2;
+
+     TOTAL     DOUBLE   THRIBBLE
+---------- ---------- ----------
+        95        190        285
+
+c> select S_name from Student12 where Roll_no=3;
+
+S_NAME
+-------------------------
+Sourav
+
+d> select phone_no from Student12 where S_name='Sachin';
+
+  PHONE_NO
+----------
+9891234534
+
+e> select min(sub1),max(sub1) from Marksheet12;
+
+ MIN(SUB1)  MAX(SUB1)
+---------- ----------
+        45         78
+
+f> select min(sub3),max(sub3),avg(sub3) from Marksheet12;
+
+ MIN(SUB3)  MAX(SUB3)  AVG(SUB3)
+---------- ---------- ----------
+        33         50 42.6666667
+
+ g> select count(Roll_no) from Student12;
+
+COUNT(ROLL_NO)
+--------------
+             3
+
+SQL> select count(Roll_no) from student12 where S_Address='Nalanchira';
+
+COUNT(ROLL_NO)
+--------------
+             1
+
+h> select distinct sub1 from Marksheet12;
+
+      SUB1
+----------
+        78
+        45
+        60

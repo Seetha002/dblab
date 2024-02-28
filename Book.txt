@@ -1,0 +1,50 @@
+ CREATE TABLE BOOK(Bid numeric(3),Banme varchar(20),Author varchar(20),Lid numeric(3),price nume
+ric(20),Sid numeric(3),Fid numeric(3),
+  2  constraint pk PRIMARY KEY(Bid));
+
+ CREATE TABLE Librarian(Lid numeric(3),Lname varchar(20),salary numeric(10),
+ constraint pk12 PRIMARY KEY(Lid));
+
+CREATE TABLE Student1(Sid numeric(3),Sname varchar(20),no_of_books numeric(10),Bid numeric(3),
+
+constraint pk13 PRIMARY KEY(Sid),
+constraint fk13 FOREIGN KEY(Bid) references Book(Bid));
+
+CREATE TABLE Faculty(Fid numeric(3),Fname varchar(20),salary numeric(10),Sid numeric(3),
+Bid numeric(3),
+constraint pk14 PRIMARY KEY(Fid),
+constraint fk2 FOREIGN KEY(Sid) references Student1(Sid),
+constraint fk3 FOREIGN KEY(Bid) references Book(Bid));
+
+ ALTER TABLE Book ADD constraint fk4 FOREIGN KEY(Lid) references Librarian(Lid);
+
+
+ ALTER TABLE Book ADD constraint fk5 FOREIGN KEY(Sid) references Student1(Sid);
+
+
+ ALTER TABLE Book ADD constraint fk6 FOREIGN KEY(Fid) references Faculty(Fid);
+
+ insert into Librarian values(01,'shalu',10000);
+
+ALTER TABLE Book DROP constraint fk5;
+
+
+ALTER TABLE Book DROP constraint fk6;
+
+insert into book values(01,'Wings of Fire','APJ',01,450,02,03);
+
+insert into Student1 values(02,'Preethi',1,01);
+
+insert into Faculty values(03,'Thasni',25000,02,01);
+
+ALTER TABLE Book DROP COLUMN price;
+
+ ALTER TABLE Faculty ADD Address varchar(30);
+
+ ALTER TABLE Student1 DROP constraint fk13;
+
+ ALTER TABLE Faculty DROP constraint fk3;
+
+ ALTER TABLE Faculty DROP constraint fk2;
+
+Drop table Student1;

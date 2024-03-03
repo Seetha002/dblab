@@ -292,9 +292,10 @@ where d.deptid=s.deptid and d.deptid=st.deptid order by d.deptid;
        101 MCA                  Seetha               Rekha
        102 MBA                  Preethi              Subha
        103 MTech                Thasni               Jeeja
-n)select d.name,s.name from department13 d,staff13 s 
-where d.deptid=s.deptid and s.salary=(select max(salary) from staff13);
-
-NAME                 NAME
--------------------- --------------------
-MCA                  Sreeja
+n)select d.name,s.name,s.salary from department13 d,staff13 s 
+where d.deptid=s.deptid and s.salary=(select max(salary) from staff13 where deptid=d.deptid);
+NAME                 NAME                    SALARY
+-------------------- -------------------- ----------
+MTech                Jeeja                    27500
+MCA                  Sreeja                   30000
+MBA                  Subha                    20000

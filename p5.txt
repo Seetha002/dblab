@@ -1,0 +1,39 @@
+a) select to_char(current_date,'mm-dd-yyyy')new_form from dual;
+
+NEW_FORM
+----------
+03-11-2024
+
+ select extract(day from current_date)day from dual;
+
+       DAY
+----------
+        11
+
+select extract(month from current_date)month from dual;
+     MONTH
+----------
+         3
+
+select extract(year from current_date)year from dual;
+
+      YEAR
+----------
+      2024
+
+b)select to_char(current_date,'HH24-MI-SS')Time from dual;
+
+TIME
+--------
+14-34-08
+
+c)select to_char(current_date-1,'day month ddth yyyy')yesterday from dual;    
+YESTERDAY
+-----------------------------
+tuesday   march     12th 2024
+
+d)select abs(to_date('01-06-2023','dd-mm-yyyy')-to_date('31-08-2023','dd-mm-yyyy'))Days from dual;
+ 
+      DAYS
+----------
+        91        

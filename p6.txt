@@ -1,0 +1,33 @@
+create table student14(id numeric(3),name varchar(15),mark numeric(4),
+constraint stt14 primary key(id));
+
+  insert into student14 values(1,'Adhi',90);
+  insert into student14 values(2,'Siva',80);
+  insert into student14 values(3,'Diljith',85);
+
+a)SQL> commit;
+
+Commit complete.
+
+SQL> Savepoint s1;
+
+Savepoint created.
+
+SQL> Rollback to s1;
+
+Rollback complete.
+
+c) create role new_student;
+Role created.
+
+b)grant select on student14 to new_student;
+Grant succeeded.
+
+grant update(name) on student14 to new_student;
+Grant succeeded.
+
+ Revoke update on student14 from new_student;
+Revoke succeeded.
+
+Revoke select on student14 from new_student;
+Revoke succeeded.

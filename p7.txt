@@ -1,0 +1,48 @@
+create table employee14(empid numeric(3),name varchar(20),c_id numeric(3),designation varchar(20),
+salary numeric(10),city varchar(15),
+constraint ep14 primary key(empid));
+
+desc employee14;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(20)
+ C_ID                                               NUMBER(3)
+ DESIGNATION                                        VARCHAR2(20)
+ SALARY                                             NUMBER(10)
+ CITY                                               VARCHAR2(15)
+
+insert into employee14 values(101,'Yadu',301,'Manager',30000,'Trivandrum');
+insert into employee14 values(102,'Neelima',302,'Clerk',25000,'Ernakulam');
+insert into employee14 values(103,'Jijo',303,'Clerk',25000,'Trivandrum');
+
+select * from employee14;
+
+     EMPID NAME                       C_ID DESIGNATION              SALARY
+---------- -------------------- ---------- -------------------- ----------
+CITY
+---------------
+       101 Yadu                        301 Manager                   30000
+Trivandrum
+
+       102 Neelima                     302 Clerk                     25000
+Ernakulam
+
+       103 Jijo                        303 Clerk                     25000
+Trivandrum
+a)create view manager14 as select * from employee14 where designation='Manager';
+
+update manager14 set salary=salary+salary*10/100;
+
+select * from manager14;
+
+     EMPID NAME                       C_ID DESIGNATION              SALARY
+---------- -------------------- ---------- -------------------- ----------
+CITY
+---------------
+       101 Yadu                        301 Manager                   33000
+Trivandrum
+
+b)create assertion emp_const check(not exists(select * from employee14 
+where designation='Clerk' and salary<(select salary from employee14 where designation='Manager')));
+

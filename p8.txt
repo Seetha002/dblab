@@ -1,0 +1,39 @@
+declare
+n number(2);
+i number(2);
+sum1 number(4):=0;i
+begin
+ n:=&n;
+for i in 1..n
+loop
+sum1:= sum1 + i;
+end loop;
+dbms_output.put_line('sum of first '||n||' natural numbers are: '||sum1);
+end;
+/
+
+declare
+num number(3);
+i number(3);
+j number(3);
+flag number(2):=0;
+begin
+num:=&num;
+for i in 2..num
+loop
+flag:=0;
+for j in 2..i/2
+loop
+if mod(i,j)=0
+then
+flag:=1;
+exit;
+end if;
+end loop;
+if flag=0
+then
+dbms_output.put_line(i);
+end if;
+end loop;
+end;
+/

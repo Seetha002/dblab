@@ -1,0 +1,109 @@
+SQL> create table hotel2(hotelid numeric(3),name varchar2(20),no_of_rooms numeric(5),rate_day numeri
+c(10),constraint ht1 primary key(hotelid));
+
+SQL>  create table guest2(guestid numeric(3),name varchar(20),no_of_days numeric(5),hotelid numeric(
+3),constraint gt1 primary key(guestid),constraint gt2 foreign key(hotelid) references hotel2(hotelid
+));
+
+ insert into hotel2 values(101,'Starlight',300,1500);
+ insert into hotel2 values(102,'Moonshine',100,500);
+ insert into hotel2 values(103,'Sunrise',200,1000);
+ insert into hotel2 values(104,'Galaxy',350,2000);
+
+insert into guest2 values(201,'Renjima',3,102);
+insert into guest2 values(202,'Mahima',2,104);
+insert into guest2 values(203,'Aswathy',4,101);
+insert into guest2 values(204,'Meenu',3,103);
+
+SQL> desc hotel2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HOTELID                                   NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(20)
+ NO_OF_ROOMS                                        NUMBER(5)
+ RATE_DAY                                           NUMBER(10)
+
+SQL> desc guest2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GUESTID                                   NOT NULL NUMBER(3)
+ NAME                                               VARCHAR2(20)
+ NO_OF_DAYS                                         NUMBER(5)
+ HOTELID                                            NUMBER(3)
+
+SQL> select * from hotel2;
+
+   HOTELID NAME                 NO_OF_ROOMS   RATE_DAY
+---------- -------------------- ----------- ----------
+       101 Starlight                    300       1500
+       102 Moonshine                    100        500
+       103 Sunrise                      200       1000
+       104 Galaxy                       350       2000
+
+
+SQL> select * from guest2;
+
+   GUESTID NAME                 NO_OF_DAYS    HOTELID
+---------- -------------------- ---------- ----------
+       201 Renjima                       3        102
+       202 Mahima                        2        104
+       203 Aswathy                       4        101
+       204 Meenu                         3        103
+
+a)set serveroutput on
+declare 
+amt number(10);
+cursor rent_cur is select g.guestid,g.name,g.no_of_days,g.hotelid,h.rate_day from guest2 g,hotel2 h where g.hotelid=h.hotelid;
+id guest2.guestid % type;
+name guest2.name % type;
+days guest2.no_of_days % type;
+hid guest2.hotelid % type;
+rate hotel2.rate_day % type;
+begin
+open rent_cur;
+dbms_output.put_line('Id  '||'Name  '||'Days  '||'HotelId  '||'Rate');
+loop
+fetch rent_cur into id,name,days,hid,rate;
+exit when rent_cur % notfound;
+amt:=0;
+amt:=rate*days;
+dbms_output.put_line(id||' '||name||' '||days||' '||hid||' '||amt);
+end loop;
+close rent_cur;
+end;
+/
+
+Id  Name  Days  HotelId  Rate
+203 Aswathy 4 101 6000
+201 Renjima 3 102 1500
+204 Meenu 3 103 3000
+202 Mahima 2 104 4000
+
+PL/SQL procedure successfully completed.
+
+b)
+set serveroutput on
+declare 
+cursor hdetails is select hotelid,name,no_of_rooms,rate_day from hotel2 where rate_day>500;
+id hotel2.hotelid % type;
+name hotel2.name % type;
+room hotel2.no_of_rooms % type;
+rate hotel2.rate_day % type;
+begin
+open hdetails;
+dbms_output.put_line('Id  '||'Name  '||'Rooms  '||'Rate');
+loop
+fetch hdetails into id,name,room,rate;
+exit when hdetails % notfound;
+dbms_output.put_line(id||' '||name||' '||room||' '||rate);
+end loop;
+close hdetails;
+end;
+/
+
+Id  Name  Rooms  Rate
+101 Starlight 300 1500
+103 Sunrise 200 1000
+104 Galaxy 350 2000
+
+PL/SQL procedure successfully completed.

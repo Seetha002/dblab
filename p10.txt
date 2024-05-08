@@ -1,0 +1,77 @@
+functions
+a)create or replace function stud(id in number)
+return number
+is
+r number(1);
+begin
+declare
+cursor c1 is select * from student13 where studid=id;
+id1 student13.studid % type;
+name student13.sname % type;
+class student13.class % type;
+city student13.city % type;
+total student13.total_mark % type;
+perc student13.percentage % type;
+dep student13.deptid % type;
+begin
+open c1;
+loop
+fetch c1 into id1,name,class,city,total,perc,dep;
+exit when c1 %notfound;
+dbms_output.put_line('Id:'||id1||' Name:'||name||' class:'||class||' City:'||city);
+dbms_output.put_line('Total:'||total||' Percent:'||perc||' Department:'||dep);
+end loop;
+close c1;
+end;
+return r;
+end;
+/
+
+select stud(1001) from dual;
+
+STUD(1004)
+----------
+
+
+Id:1004Name:Adhiclass:s5City:Trivandrum
+Total:630Percent:89Department:101
+
+b)create or replace function dis(id in number)
+return number
+is 
+r number(3);
+begin
+declare
+cursor c2 is select * from staff13 where deptid=id;
+id1 staff13.staffid % type;
+name staff13.name % type;
+dep staff13.deptid % type;
+des staff13.designation % type;
+sal staff13.salary % type;
+city staff13.city % type;
+begin 
+open c2;
+loop
+fetch c2 into id1,name,dep,des,sal,city;
+exit when c2 %notfound;
+dbms_output.put_line('staffId:'||id1||' Name:'||name||' Deptid:'||dep);
+dbms_output.put_line(' Designation:'||des||' Salary:'||sal||' City:'||city);
+end loop;
+close c2;
+end;
+return r;
+end;
+/
+
+
+select dis(101) from dual;
+
+
+  DIS(101)
+----------
+
+
+staffId:202 Name:Sreeja Deptid:101
+Designation:HOD Salary:30000 City:Kollam
+staffId:204 Name:Rekha Deptid:101
+Designation:Associate professor Salary:27500 City:Ernakulam

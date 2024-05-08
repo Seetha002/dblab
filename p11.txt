@@ -1,0 +1,84 @@
+a)
+create or replace trigger studno
+before insert on student13
+for each row
+declare
+n number(4);
+begin
+select max(studid) into n from student13;
+if :new.studid is null then
+:new.studid:=n+1;
+end if;
+end;
+/
+
+insert into student13(sname,class,city,total_mark,percentage,deptid) values('yadu','s3','Ernakulam',540,85,102);
+
+
+SQL> select * from student13;
+
+    STUDID SNAME                CLASS           CITY                 TOTAL_MARK
+---------- -------------------- --------------- -------------------- ----------
+PERCENTAGE     DEPTID
+---------- ----------
+      1004 Adhi                 s5              Trivandrum                  630
+        89        101
+
+      1001 Thasni               s2              Trivandrum                  650
+        95        103
+
+      1002 Seetha               s2              Kollam                      640
+        90        101
+
+
+    STUDID SNAME                CLASS           CITY                 TOTAL_MARK
+---------- -------------------- --------------- -------------------- ----------
+PERCENTAGE     DEPTID
+---------- ----------
+      1003 Preethi              s4              Ernakulam                   580
+        88        102
+
+      1005 yadu                 s3              Ernakulam                   540
+        85        102
+
+
+b)
+create or replace trigger sal
+before update on staff13
+for each row
+begin
+if :old.salary > :new.salary then
+raise_application_error(-2000,'New salary must be greater than old salary');
+end if;
+end;
+/
+
+
+Trigger created.
+
+SQL>  update staff13 set salary=25000 where staffid=203;
+
+1 row updated.
+
+SQL> select * from staff13;
+
+   STAFFID NAME                     DEPTID DESIGNATION              SALARY
+---------- -------------------- ---------- -------------------- ----------
+CITY
+--------------------
+       201 Jeeja                       103 Associate professor       27500
+Ernakulam
+
+       202 Sreeja                      101 HOD                       30000
+Kollam
+
+       203 Subha                       102 Advisor                   25000
+Trivandrum
+
+
+   STAFFID NAME                     DEPTID DESIGNATION              SALARY
+---------- -------------------- ---------- -------------------- ----------
+CITY
+--------------------
+       204 Rekha                       101 Associate professor       27500
+Ernakulam

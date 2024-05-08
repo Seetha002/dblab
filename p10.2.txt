@@ -1,0 +1,49 @@
+a)create or replace procedure great(n1 in number,n2 in number,n3 in number)
+is
+begin
+if (n1>n2) and (n1>n3)
+then 
+dbms_output.put_line('Greatest number is:'||n1);
+else if (n2>n3) and (n2>n1)
+then
+dbms_output.put_line('Greatest number is:'||n2);
+else
+dbms_output.put_line('Greatest number is:'||n3);
+end if;
+end if;
+end;
+/
+
+exec great(2,4,3);
+Greatest number is:4
+
+b)create or replace procedure designation1(desig in varchar)
+is 
+begin
+declare
+cursor det is select empid,name,c_id,designation,salary,city from employee13 where designation=desig;
+id employee13.empid % type;
+name employee13.name % type;
+cid employee13.c_id % type;
+des employee13.designation % type;
+sal employee13.salary % type;
+city employee13.city % type;
+begin
+open det;
+dbms_output.put_line('Id  '||'Name  '||'CID  '||'Desig  '||'salary  '||'City');
+loop
+fetch det into id,name,cid,des,sal,city;
+exit when det %notfound;
+dbms_output.put_line(id||'  '||name||'  '||cid||'  '||des||'  '||sal||'  '||city||'  ');
+end loop;
+close det;
+end;
+end;
+/
+
+exec designation1('Clerk');
+Id    Name     CID  Desig  salary  City
+3001  Sulthan  301  Clerk  27000   Ernakulam
+3003  Arjun    303  Clerk  27000   Ernakulam
+
+PL/SQL procedure successfully completed.

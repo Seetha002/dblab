@@ -1,0 +1,99 @@
+> use library
+switched to db library
+1> db.book.insertOne({Bid:1001,Bname:"AOS",Author:"Yadu",Price:400})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("663b5c38441ce10c529d58ac")
+}
+> db.book.insertMany([{Bid:1002,Bname:"ADBMS",Author:"Adhi",Price:600},{Bid:1003,Bname:"Java",Author:"Silberchatz",Price:500}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("663b5ca1441ce10c529d58ad"),
+                ObjectId("663b5ca1441ce10c529d58ae")
+        ]
+}
+> db.book.insertMany([{Bid:1004,Bname:"ADS",Author:"Siva",Price:300},{Bid:1005,Bname:"ACN",Author:"Sulthan",Price:400}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("663b5cda441ce10c529d58af"),
+                ObjectId("663b5cda441ce10c529d58b0")
+        ]
+}
+2> db.book.find()
+{ "_id" : ObjectId("663b5c38441ce10c529d58ac"), "Bid" : 1001, "Bname" : "AOS", "Author" : "Yadu", "Price" : 400 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ad"), "Bid" : 1002, "Bname" : "ADBMS", "Author" : "Adhi", "Price" : 600 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ae"), "Bid" : 1003, "Bname" : "Java", "Author" : "Silberchatz", "Price" : 500 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58af"), "Bid" : 1004, "Bname" : "ADS", "Author" : "Siva", "Price" : 300 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58b0"), "Bid" : 1005, "Bname" : "ACN", "Author" : "Sulthan", "Price" : 400 }
+3> db.book.find({Author:"Silberchatz"})
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ae"), "Bid" : 1003, "Bname" : "Java", "Author" : "Silberchatz", "Price" : 500 }
+4> db.book.updateOne({Bname:"AOS"},{$set:{Price:500}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.book.find()
+{ "_id" : ObjectId("663b5c38441ce10c529d58ac"), "Bid" : 1001, "Bname" : "AOS", "Author" : "Yadu", "Price" : 500 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ad"), "Bid" : 1002, "Bname" : "ADBMS", "Author" : "Adhi", "Price" : 600 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ae"), "Bid" : 1003, "Bname" : "Java", "Author" : "Silberchatz", "Price" : 500 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58af"), "Bid" : 1004, "Bname" : "ADS", "Author" : "Siva", "Price" : 300 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58b0"), "Bid" : 1005, "Bname" : "ACN", "Author" : "Sulthan", "Price" : 400 }
+5> db.book.updateOne({Bname:"ADBMS"},{$set:{Bname:"DBMS"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.book.find()
+{ "_id" : ObjectId("663b5c38441ce10c529d58ac"), "Bid" : 1001, "Bname" : "AOS", "Author" : "Yadu", "Price" : 500 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ad"), "Bid" : 1002, "Bname" : "DBMS", "Author" : "Adhi", "Price" : 600 }
+{ "_id" : ObjectId("663b5ca1441ce10c529d58ae"), "Bid" : 1003, "Bname" : "Java", "Author" : "Silberchatz", "Price" : 500 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58af"), "Bid" : 1004, "Bname" : "ADS", "Author" : "Siva", "Price" : 300 }
+{ "_id" : ObjectId("663b5cda441ce10c529d58b0"), "Bid" : 1005, "Bname" : "ACN", "Author" : "Sulthan", "Price" : 400 }
+> db.movie.insertOne({id:101,name:"Titanic",type:"Commercial",Director:"James",Hero:"DiCaprio"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("663b618d441ce10c529d58b1")
+}
+> db.movie.insertMany([{id:102,name:"Premalu",type:"Short",Director:"Girish",Hero:"Naslen"},{id:103,name:"Joe",type:"Commercial",Director:"Hariharan",Hero:"Rio"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("663b6350441ce10c529d58b2"),
+                ObjectId("663b6350441ce10c529d58b3")
+        ]
+}
+> db.movie.find().pretty()
+{
+        "_id" : ObjectId("663b618d441ce10c529d58b1"),
+        "id" : 101,
+        "name" : "Titanic",
+        "type" : "Commercial",
+        "Director" : "James",
+        "Hero" : "DiCaprio"
+}
+{
+        "_id" : ObjectId("663b6350441ce10c529d58b2"),
+        "id" : 102,
+        "name" : "Premalu",
+        "type" : "Short",
+        "Director" : "Girish",
+        "Hero" : "Naslen"
+}
+{
+        "_id" : ObjectId("663b6350441ce10c529d58b3"),
+        "id" : 103,
+        "name" : "Joe",
+	"type" : "Commercial",
+        "Director" : "Hariharan",
+        "Hero" : "Rio"
+}
+1> db.movie.find({},{name:1,_id:0})
+{ "name" : "Titanic" }
+{ "name" : "Premalu" }
+{ "name" : "Joe" }
+2> db.movie.find({},{id:1,name:1,_id:0})
+{ "id" : 101, "name" : "Titanic" }
+{ "id" : 102, "name" : "Premalu" }
+{ "id" : 103, "name" : "Joe" }
+3> db.movie.find({name:"Titanic"},{Director:1,_id:0})
+{ "Director" : "James" }
+4> db.movie.find({},{Hero:1,name:1,_id:0})
+{ "name" : "Titanic", "Hero" : "DiCaprio" }
+{ "name" : "Premalu", "Hero" : "Naslen" }
+{ "name" : "Joe", "Hero" : "Rio" }
